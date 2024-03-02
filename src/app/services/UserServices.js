@@ -9,6 +9,25 @@ class UserService {
       if (existing) {
         return {type: 400, message: 'Email não disponível'};
       }
+      payload.role = 'customer';
+      const response = await User.create(payload);
+
+      delete response.dataValues.password;
+      
+      return {type: 201, message: response};
+    } catch (error) {
+      return { type: 500, message: error.message };
+    };
+  };
+
+  async createAdmin(payload) {
+    try {
+      const {email} = payload;
+      const existing = await User.findOne({where: {email}});
+      if (existing) {
+        return {type: 400, message: 'Email não disponível'};
+      }
+      payload.role = 'admin';
       const response = await User.create(payload);
 
       delete response.dataValues.password;

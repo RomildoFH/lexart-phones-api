@@ -21,7 +21,7 @@ class UserController {
       return res.status(400).json({message: "Dados inválidos"});
     };
 
-    const { type, message } = await UserService.createUser(req.body);
+    const { type, message } = await UserService.createAdmin(req.body);
 
     return res.status(type).json(message);
   };
