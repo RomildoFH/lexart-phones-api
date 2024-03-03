@@ -27,7 +27,10 @@ class Database {
         console.error('Erro ao conectar ao banco de dados:', error);
       }
 
-      models.forEach((model) => model.init(this.connection))
+      models.forEach((model) => {
+        console.log(`Inicializando modelo ${model.name}`);
+        model.init(this.connection)
+      })
 
       console.log('Sequelize inicializado e conectado com sucesso.');
     } catch (error) {
