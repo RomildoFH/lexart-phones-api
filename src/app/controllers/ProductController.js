@@ -11,7 +11,7 @@ class ProductController {
       color = details.color;
     };
 
-    if (!name || !brand || !price || !color) {
+    if (!name || !brand || !price || !color || !model) {
       return res.status(404).json({message: "All fields are required"});
     };
 

@@ -1,13 +1,14 @@
 // src/database/index.js
 const { Sequelize } = require('sequelize');
 const User = require('../app/models/user');
+const Product = require('../app/models/product');
 const env = 'development';
 
 const connectionDatabase = require('../config/database')[env];
 
 console.log('connectionDatabase: ' + connectionDatabase.database)
 
-const models = [User];
+const models = [User, Product];
 
 class Database {
   constructor() {
