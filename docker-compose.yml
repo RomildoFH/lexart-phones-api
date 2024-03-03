@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: container_postgres
+    environment:
+      - POSTGRES_USER=default
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=lexart-phones-orm
+    ports:
+      - 5432:5432
+  api:
+    build: .
+    container_name: container_api
+    image: node:16
+    restart: always
+    ports:
+      - 3001:3001
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DATABASE=lexart-phones-orm
+      - POSTGRES_USER=default
+      - POSTGRES_PASSWORD=password
+      - SERVER_PORT=3001
+      - JWT_SECRET=secrety
+    volumes:
+      - ./:/usr/app
+    working_dir: /usr/app
+    command: npm run dev
+    tty: true
+    stdin_open: true
+    depends_on:
+      - postgres

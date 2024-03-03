@@ -10,10 +10,11 @@ module.exports = {
     dialect: 'postgres',
     dialectModule: require('pg'),
     dialectOptions: {
-      ssl: {
-        require: true, // Requer SSL
-        rejectUnauthorized: false // Desativa a verificação do certificado (use apenas para ambientes de desenvolvimento)
-      }
+      // ssl: {
+      //   require: false, // Requer SSL
+      //   rejectUnauthorized: false // Desativa a verificação do certificado (use apenas para ambientes de desenvolvimento)
+      // }
+      ssl: false,
     }
   },
   test: {

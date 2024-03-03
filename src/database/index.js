@@ -17,9 +17,6 @@ class Database {
   async init() {
     try {
       console.log('Dentro do init')
-      // this.connection = new Sequelize('postgres://default:dO8z4tGsxymg@ep-young-cell-a44zqc2q-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
-      //   dialectModule: require('pg')
-      // });
       this.connection = new Sequelize(connectionDatabase)
       try {
         await this.connection.authenticate();
