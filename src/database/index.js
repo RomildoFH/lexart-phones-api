@@ -1,9 +1,9 @@
 // src/database/index.js
 const { Sequelize } = require('sequelize');
 const User = require('../app/models/user');
-const env = process.env.NODE_ENV || 'development';
+const env = 'development';
 
-const connectionDatabase = require('../config/database').development;
+const connectionDatabase = require('../config/database')[env];
 
 console.log('connectionDatabase: ' + connectionDatabase.database)
 
@@ -16,9 +16,10 @@ class Database {
 
   async init() {
     try {
-      this.connection = new Sequelize('postgres://default:dO8z4tGsxymg@ep-young-cell-a44zqc2q-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
-  dialectModule: require('pg')
-});
+      // this.connection = new Sequelize('postgres://default:dO8z4tGsxymg@ep-young-cell-a44zqc2q-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
+      //   dialectModule: require('pg')
+      // });
+      this.connection = new Sequelize(connectionDatabase)
       try {
         await this.connection.authenticate();
         console.log('Conexão com o banco de dados estabelecida com sucesso.');

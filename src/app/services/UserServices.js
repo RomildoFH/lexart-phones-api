@@ -68,6 +68,7 @@ class UserService {
   async getAll() {
     try {
       console.log('antes da query');
+      console.log(User)
       const response = await User.findAll({attributes: { exclude: ["password"]}});
       console.log('após da query', response);
       if (response?.length > 0) {

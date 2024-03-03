@@ -29,8 +29,8 @@ class UserController {
   async getAll(req, res) {
     const { type, message } = await UserService.getAll();
 
-    // return res.status(type).json(message);
-    return res.status(200).json({message: 'xablau'})
+    return res.status(type).json(message);
+    // return res.status(200).json({message: 'xablau'})
   };
 
   async getById(req, res) {
