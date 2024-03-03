@@ -16,7 +16,7 @@ class Database {
 
   async init() {
     try {
-      this.connection = new Sequelize('postgres://admin:admin@localhost:5432/mydb', {
+      this.connection = new Sequelize('postgres://default:dO8z4tGsxymg@ep-young-cell-a44zqc2q-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
   dialectModule: require('pg')
 });
       try {
