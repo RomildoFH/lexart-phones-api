@@ -67,13 +67,16 @@ class UserService {
 
   async getAll() {
     try {
+      console.log('antes da query');
       const response = await User.findAll({attributes: { exclude: ["password"]}});
+      console.log('após da query', response);
       if (response?.length > 0) {
         return {type: 200, message: response};
       } else {
         return {type: 200, message: "Nenhum usuário encontrado"};
       }
     } catch (error) {
+      console.log('erro da query', error);
       return { type: 500, message: error.message };
     }
   };
