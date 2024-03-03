@@ -1,13 +1,16 @@
 // src/database/index.js
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const User = require('../app/models/user');
-const env = 'development';
+const Product = require('../app/models/product');
+const env = process.env.NODE_ENVIRONMENT || "development";
+console.log('ambiente de produção', env);
 
 const connectionDatabase = require('../config/database')[env];
 
 console.log('connectionDatabase: ' + connectionDatabase.database)
 
-const models = [User];
+const models = [User, Product];
 
 class Database {
   constructor() {
@@ -17,9 +20,6 @@ class Database {
   async init() {
     try {
       console.log('Dentro do init')
-      // this.connection = new Sequelize('postgres://default:dO8z4tGsxymg@ep-young-cell-a44zqc2q-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
-      //   dialectModule: require('pg')
-      // });
       this.connection = new Sequelize(connectionDatabase)
       try {
         await this.connection.authenticate();
