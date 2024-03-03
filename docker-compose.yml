@@ -23,6 +23,7 @@ services:
       - POSTGRES_PASSWORD=password
       - SERVER_PORT=3001
       - JWT_SECRET=secrety
+      - NODE_ENVIRONMENT=development
     volumes:
       - ./:/usr/app
     working_dir: /usr/app

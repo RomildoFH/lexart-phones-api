@@ -58,7 +58,15 @@ class ProductService {
 
   async getProductsAll(startIndex, endIndex) {
     try {
-      const response = await Product.findAll({ offset: startIndex, limit: endIndex - startIndex });
+      const limit = endIndex - startIndex;
+
+      let response = [];
+
+      if (limit > 0) {
+        response = await Product.findAll({ offset: startIndex, limit: limit });
+      } else {
+        response = await Product.findAll();
+      }
 
       if (!response) {
         return {type: 404, message: "Products not found"};

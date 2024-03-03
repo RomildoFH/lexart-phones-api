@@ -1,8 +1,10 @@
 // src/database/index.js
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const User = require('../app/models/user');
 const Product = require('../app/models/product');
-const env = 'development';
+const env = process.env.NODE_ENVIRONMENT || "development";
+console.log('ambiente de produção', env);
 
 const connectionDatabase = require('../config/database')[env];
 
