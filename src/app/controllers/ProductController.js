@@ -67,6 +67,62 @@ class ProductController {
 
     return res.status(500).json({message: "Error creating new products"});
   };
+
+  async edit(req, res) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(404).json({message: "Necessary to inform a product id"});
+    };
+
+    const payload = {
+      ...req.body,
+    };
+
+    const { type, message } = await ProductService.edit(id, payload);
+
+    return res.status(type).json(message);
+  };
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(404).json({message: "Necessary to inform a product id"});
+    };
+    const { type, message } = await ProductService.delete(id);
+
+    return res.status(type).json(message);
+  };
+
+  async getProductById(req, res) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(404).json({message: "Necessary to inform a product id"});
+    };
+    const { type, message } = await ProductService.getProductById(id);
+
+    return res.status(type).json(message);
+  };
+
+  async getAllProducts(req, res) {
+
+    const { type, message } = await ProductService.getProductsAll();
+
+    if (message?.length === 0) {
+      return {type: 404, message: "Products not found"};
+    };
+
+    const { limit = message.length, page = 1 } = req.params;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const paginatedItems = message.slice(startIndex, endIndex);
+
+    return res.status(type).json(paginatedItems);
+  };
 };
 
 module.exports = new ProductController();
