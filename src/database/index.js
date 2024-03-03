@@ -16,7 +16,9 @@ class Database {
 
   async init() {
     try {
-      this.connection = new Sequelize(connectionDatabase);
+      this.connection = new Sequelize('postgres://admin:admin@localhost:5432/mydb', {
+  dialectModule: require('pg')
+});
       try {
         await this.connection.authenticate();
         console.log('Conexão com o banco de dados estabelecida com sucesso.');
