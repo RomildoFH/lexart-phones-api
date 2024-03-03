@@ -1,7 +1,7 @@
 const ProductService = require('../services/ProductServices');
 
 class ProductController {
-  async createOne(req, res) {
+  static async createOne(req, res) {
     let { name, details, price, brand, model, color } = req.body;
 
     if (details) {
@@ -27,8 +27,8 @@ class ProductController {
     return res.status(type).json(message);
   };
 
-  async createMany(req, res) {
-    const { products } = req.body;
+  static async createMany(req, res) {
+    const products = req.body;
 
     if (!products || products.length === 0) {
       return res.status(404).json({message: "At least one product must be specified"});
@@ -66,6 +66,13 @@ class ProductController {
     };
 
     return res.status(500).json({message: "Error creating new products"});
+  };
+
+  async create(req, res) {
+    if (req.body.length) {
+      return ProductController.createMany(req, res);
+    };
+    return ProductController.createOne(req, res);
   };
 
   async edit(req, res) {
@@ -108,20 +115,14 @@ class ProductController {
 
   async getAllProducts(req, res) {
 
-    const { type, message } = await ProductService.getProductsAll();
-
-    if (message?.length === 0) {
-      return {type: 404, message: "Products not found"};
-    };
-
-    const { limit = message.length, page = 1 } = req.params;
+    const { limit = 0, page = 1 } = req.params;
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 
-    const paginatedItems = message.slice(startIndex, endIndex);
+    const {type, message} = await ProductService.getProductsAll(startIndex, endIndex);
 
-    return res.status(type).json(paginatedItems);
+    return res.status(type).json(message);
   };
 };
 
