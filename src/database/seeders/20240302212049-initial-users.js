@@ -17,9 +17,9 @@ module.exports = {
     },
     {
       name: 'Jhon Doe',
-      email: 'jd@gmail.com',
+      email: 'jhondoe@gmail.com',
       password: hashedPassword,
-      role: 'admin',
+      role: 'customer',
       createdAt: now,
       updatedAt: now,
     },
