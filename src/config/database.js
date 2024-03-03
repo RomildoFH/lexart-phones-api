@@ -1,6 +1,3 @@
-// src/config/database.js
-require('dotenv').config();
-
 module.exports = {
   development: {
     username: process.env.POSTGRES_USER,
@@ -8,11 +5,9 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    // Remova ou defina como false a opção SSL/TLS
     dialectOptions: {
-      ssl: {
-        require: true, // Requer SSL
-        rejectUnauthorized: false // Desativa a verificação do certificado (use apenas para ambientes de desenvolvimento)
-      }
+      ssl: false
     }
   },
   test: {
@@ -21,11 +16,9 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    // Remova ou defina como false a opção SSL/TLS
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
+      ssl: false
     }
   },
   production: {
@@ -34,11 +27,9 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    // Remova ou defina como false a opção SSL/TLS
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
+      ssl: false
     }
   }
 };
