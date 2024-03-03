@@ -8,6 +8,7 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    dialectModule: require('pg'),
     dialectOptions: {
       ssl: {
         require: true, // Requer SSL
@@ -21,6 +22,7 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    dialectModule: require('pg'),
     dialectOptions: {
       ssl: {
         require: true,
@@ -34,6 +36,7 @@ module.exports = {
     database: process.env.POSTGRES_DATABASE,
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres',
+    dialectModule: require('pg'),
     dialectOptions: {
       ssl: {
         require: true,
