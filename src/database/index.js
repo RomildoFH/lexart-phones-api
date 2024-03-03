@@ -3,9 +3,9 @@ const { Sequelize } = require('sequelize');
 const User = require('../app/models/user');
 const env = process.env.NODE_ENV || 'development';
 
-const connectionDatabase = require('../config/database')[env];
+const connectionDatabase = require('../config/database').development;
 
-console.log('connectionDatabase: ' + connectionDatabase)
+console.log('connectionDatabase: ' + connectionDatabase.database)
 
 const models = [User];
 
