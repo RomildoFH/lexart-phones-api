@@ -16,6 +16,7 @@ class UserService {
       
       return {type: 201, message: response};
     } catch (error) {
+      console.log('erro da query', error);
       return { type: 500, message: error.message };
     };
   };
@@ -34,6 +35,7 @@ class UserService {
       
       return {type: 201, message: response};
     } catch (error) {
+      console.log('erro da query', error);
       return { type: 500, message: error };
     };
   };
