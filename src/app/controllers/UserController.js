@@ -1,4 +1,5 @@
 const UserService = require('../services/UserServices');
+const { createJWT } = require('../utils/jwtFunctions');
 
 class UserController {
 
@@ -67,8 +68,11 @@ class UserController {
   async login(req, res) {
     const { email, password } = req.body;
     const { type, message } = await UserService.login({ email, password });
-
-    return res.status(type).json(message);
+    if (type === 200) {
+      const token = createJWT(message)
+      return res.status(type).json({token: token});
+    }
+    return res.status(type).json({message: message});
   };
 };
 
