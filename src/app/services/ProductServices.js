@@ -17,7 +17,7 @@ class ProductService {
         return {type: 404, message: "Product not found"};
       };
 
-      const response = await Product.edit(payload, { where: { id } });
+      const response = await Product.update(payload, { where: { id } });
 
       if (response && response[0] > 0) {
         return {type: 200, message: "Product updated successfully"};
@@ -63,9 +63,15 @@ class ProductService {
       let response = [];
 
       if (limit > 0) {
-        response = await Product.findAll({ offset: startIndex, limit: limit });
+        response = await Product.findAll(
+          {
+            offset: startIndex,
+            limit: limit,
+            order: [['createdAt', 'ASC']]
+          }
+        );
       } else {
-        response = await Product.findAll();
+        response = await Product.findAll({order: [['createdAt', 'ASC']]});
       }
 
       if (!response) {

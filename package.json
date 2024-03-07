@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/api/server.js",
+    "feed": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "dev": "nodemon"
   },
   "repository": {
