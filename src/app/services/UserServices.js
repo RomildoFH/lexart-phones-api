@@ -7,10 +7,16 @@ class UserService {
     try {
       const {email} = payload;
       const existing = await User.findOne({where: {email}});
+
       if (existing) {
-        return {type: 400, message: 'Email não disponível'};
+        return {type: 409, message: 'Email não disponível'};
       }
+
+      const hashedPassword = await bcrypt.hash(payload.password, 10);
+      payload.password = hashedPassword;      
+
       payload.role = 'customer';
+
       const response = await User.create(payload);
 
       delete response.dataValues.password;
