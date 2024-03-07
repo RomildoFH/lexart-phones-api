@@ -1,6 +1,6 @@
-import { verifyToken } from '../utils/jwtFunctions';
-export default class TokenValidation {
-  static validateToken(
+const { verifyToken } = require('../utils/jwtFunctions');
+class TokenValidation {
+  validateToken(
     req,
     res,
     next,
@@ -15,6 +15,8 @@ export default class TokenValidation {
       next();
     } catch (error) {
       return res.status(401).json({ message: 'Token must be a valid token' });
-    }
-  }
+    };
+  };
 };
+
+module.exports = new TokenValidation();

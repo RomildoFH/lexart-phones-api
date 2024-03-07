@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 class UserService {
 
@@ -6,10 +7,16 @@ class UserService {
     try {
       const {email} = payload;
       const existing = await User.findOne({where: {email}});
+
       if (existing) {
-        return {type: 400, message: 'Email não disponível'};
+        return {type: 409, message: 'Email não disponível'};
       }
+
+      const hashedPassword = await bcrypt.hash(payload.password, 10);
+      payload.password = hashedPassword;      
+
       payload.role = 'customer';
+
       const response = await User.create(payload);
 
       delete response.dataValues.password;
@@ -122,12 +129,19 @@ class UserService {
   async login(payload) {
     try {
       const { email, password } = payload;
-      const response = await User.findOne({ where: { email, password }, attributes: { exclude: ["password", "name", "phone", "email", "createdAt", "updatedAt"]}});
-      if (response) {
-        return {type: 200, message: response};
-      } else {
-        return {type: 200, message: "E-mail ou senha inválidos"};
-      }
+        const user = await User.findOne({ where: { email } });
+
+        if (!user) {
+            return { type: 404, message: "E-mail ou senha inválidos" };
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (isPasswordValid) {
+            return { type: 200, message: { id: user.id, name: user.name, role: user.role } };
+        } else {
+            return { type: 404, message: "E-mail ou senha inválidos" };
+        }
     } catch (error) {
       return { type: 500, message: error.message };
     }
