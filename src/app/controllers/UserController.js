@@ -30,6 +30,10 @@ class UserController {
   async getAll(req, res) {
     const { type, message } = await UserService.getAll();
 
+    if (req.body.user.role !== 'admin') {
+      return res.status(401).json({message: 'Você não tem permissão para acessar'});
+    }
+
     return res.status(type).json(message);
   };
 
@@ -70,7 +74,7 @@ class UserController {
     const { type, message } = await UserService.login({ email, password });
     if (type === 200) {
       const token = createJWT(message)
-      return res.status(type).json({token: token});
+      return res.status(type).json({...message, token: token});
     }
     return res.status(type).json({message: message});
   };
