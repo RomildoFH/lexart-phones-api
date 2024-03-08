@@ -14,13 +14,13 @@ class ProductService {
     try {
       const verifyExists = await Product.findByPk(id);
       if (!verifyExists) {
-        return {type: 404, message: "Product not found"};
+        return {type: 404, message: "Produto não encontrado"};
       };
 
       const response = await Product.update(payload, { where: { id } });
 
       if (response && response[0] > 0) {
-        return {type: 200, message: "Product updated successfully"};
+        return {type: 200, message: "Produto atualizado com sucesso"};
       };
     } catch (error) {
       return {type: 500, message: error.message};
@@ -31,12 +31,12 @@ class ProductService {
     try {
       const verifyExists = await Product.findByPk(payload);
       if (!verifyExists) {
-        return {type: 404, message: "Product not found"};
+        return {type: 404, message: "Produto não encontrado"};
       };
 
       const response = await Product.destroy({where: {id: payload}});
 
-      return {type: 200, message: `${response} Products deleted successfully`};
+      return {type: 200, message: `${response} Produtos deletados`};
     } catch (error) {
       return {type: 500, message: error.message};
     };
@@ -47,7 +47,7 @@ class ProductService {
       const response = await Product.findByPk(payload);
 
       if (!response) {
-        return {type: 404, message: "Product not found"};
+        return {type: 404, message: "Produto não encontrado"};
       };
 
       return {type: 200, message: response};
@@ -75,7 +75,7 @@ class ProductService {
       }
 
       if (!response) {
-        return {type: 404, message: "Products not found"};
+        return {type: 404, message: "Nenhum produto encontrado"};
       };
 
       return {type: 200, message: response};
