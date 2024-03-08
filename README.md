@@ -1,4 +1,4 @@
-# Projeto de Gerenciamento de Produtos (Backend)
+# Lexart Phones Backend
 Este projeto consiste em uma API desenvolvida em Node.js hospedada no Vercel, que oferece serviços para gerenciar produtos (celulares). A API inclui funcionalidades como registro e login de usuários, operações CRUD (Create, Read, Update, Delete) de produtos, e exposição de rotas para consumir e inserir produtos através de requisições externas.
 
 ### Requisitos
